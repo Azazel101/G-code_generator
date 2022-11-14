@@ -1,38 +1,17 @@
 import streamlit as st
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title="Welcome to CNC - G-Code Generator!",
+    page_icon="👋",
+)
 
-st.title('CNC G-Code Generator : Drill hole')
+st.write("# Welcome to CNC - G-Code Generator! 👋")
 
-col1, col2, col3 = st.columns(3)
-with col1:
-    spindelspeed = st.slider('Spindel Speed', 100,30000,3100)
-    feedrate = st.slider('Feedrate', 10,1000,70)
-with col2:
-    deep = st.number_input('Deep', min_value = 1.0, max_value = 200.0, value = 5.0)
-    #st.markdown("***")
-    offset = st.number_input('Offset first hole', min_value = 0.0, max_value = 300.0, value = 25.0)
-
-offset = round(offset,2)
-
-with col3:
-    num_hole = st.slider('How many hole', 1,100,1)
-
-text = "G90\nM3 S" + str(spindelspeed) + "\n"
-
-text += "(Hole 1)\nG0 Z+5\nG0 X+" + str(offset) + "\nG0 Z-1.604\nG1 Z-" + str(deep) + " F" + str(feedrate) + "\n"
-
-if num_hole > 1:
-    with col3: distanc = st.number_input('Distance between hole', min_value = 0.0, max_value = 300.0, value = 25.0)
-
-    acc_dist = offset + distanc
-
-    for x in range(num_hole):
-        text += "(Hole " + str(x + 2) + ")\nG0 Z+5\nG0 X+" + str(acc_dist) + "\nG0 Z-1.604\nG1 Z-" + str(deep) + " F" + str(feedrate) + "\n"
-        acc_dist += distanc
-
-text += "M5\nG0 X+0 Y+0\nM30"
-
-st.code(text)
-
-st.download_button('Download G-Code', data = text)
+st.markdown(
+    """
+    Streamlit is an open-source app framework built specifically for
+    Machine Learning and Data Science projects.
+    **👈 Select a demo from the sidebar** to see some examples
+    of what Streamlit can do!
+"""
+)
