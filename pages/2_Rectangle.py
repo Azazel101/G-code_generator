@@ -20,41 +20,38 @@ with col3:
 deep = round(deep,2)
 deep_pass = round(deep_pass,2)
 
+cycle_pass = deep - deep_pass
+next_pass = deep_pass
 
 text = "G90\nM3 S" + str(spindelspeed) + "\n"
 text += "G0 Z+5\nG0 X0 Y0"
 
-if deep == deep_pass:
+if deep >= deep_pass:
 
-    text += "\nG1 Z-" + str(deep) + " F" + str(feedrate)
+    text += "\nG1 Z-" + str(next_pass) + " F" + str(feedrate)
     text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
     text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
     text += "\nG1 X" + str(sideB) + " Y0"
     text += "\nG1 X0 Y0\nM5\nM30"
 
-else:
 
-    cycle_pass = deep - deep_pass
-    next_pass = deep_pass
+while deep_pass < cycle_pass:
 
-    while deep_pass < cycle_pass:
+    text += "\nG1 Z-" + str(next_pass) + " F" + str(feedrate)
+    text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
+    text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
+    text += "\nG1 X" + str(sideB) + " Y0"
+    text += "\nG1 X0 Y0"
 
-        text += "\nG1 Z-" + str(next_pass) + " F" + str(feedrate)
-        text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
-        text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
-        text += "\nG1 X" + str(sideB) + " Y0"
-        text += "\nG1 X0 Y0"
+    cycle_pass -= deep_pass
+    next_pass += deep_pass
 
-        cycle_pass -= deep_pass
-        next_pass += deep_pass
-
-    if deep_pass > cycle_pass:
-            text += "\nG1 Z-" + str(cycle_pass) + " " + str(feedrate)
-            text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
-            text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
-            text += "\nG1 X" + str(sideB) + " Y0"
-            text += "\nG1 X0 Y0"
-
+if deep_pass > cycle_pass:
+    text += "\nG1 Z-" + str(cycle_pass) + " " + str(feedrate)
+    text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
+    text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
+    text += "\nG1 X" + str(sideB) + " Y0"
+    text += "\nG1 X0 Y0"
     text += "\nM5\nM30"
 
 
