@@ -1,7 +1,5 @@
 import streamlit as st
 
-st.set_page_config(layout="wide")
-
 st.title('G-Code Generator : Drill hole')
 
 col1, col2, col3 = st.columns(3)
@@ -32,7 +30,7 @@ if num_hole > 1:
         text += "(Hole " + str(x + 2) + ")\nG0 Z+5\nG0 " + direction + "+" + str(acc_dist) + "\nG0 Z-1.604\nG1 Z-" + str(deep) + " F" + str(feedrate) + "\n"
         acc_dist += distanc
 
-text += "M5\nG0 X+0 Y+0\nM30"
+text += "G0 Z+5\nM5\nG0 X+0 Y+0\nM30"
 
 st.code(text)
 

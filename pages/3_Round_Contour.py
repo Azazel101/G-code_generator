@@ -4,7 +4,7 @@ import streamlit as st
 
 #st.set_page_config(layout="wide")
 
-st.title('G-Code Generator : Rectangle')
+st.title('G-Code Generator : Round Contour')
 
 #st.image(image, caption='Sunrise by the mountains')
 
@@ -13,13 +13,14 @@ with col1:
     spindelspeed = st.slider('Spindel Speed', 100,30000,3100)
     feedrate = st.slider('Feedrate', 10,1000,70)
 with col2:
-    sideA = st.number_input('Side A', min_value = 1.0, max_value = 200.0, value = 5.0)
-    sideB = st.number_input('Side B', min_value = 1.0, max_value = 200.0, value = 5.0)
+    diameter = st.number_input('Diameter of a circle D:', min_value = 1.0, max_value = 200.0, value = 5.0)
     #st.markdown("***")
 
 with col3:
     deep = st.number_input('Depth of cutting', min_value = 1.0, max_value = 200.0, value = 5.0)
     deep_pass = st.number_input('Depth of cutting per pass', min_value = 1.0, max_value = deep, value = deep)
+
+diameter_r = diameter / 2
 
 deep = round(deep,2)
 deep_pass = round(deep_pass,2)
@@ -28,45 +29,34 @@ cycle_pass = round(deep - deep_pass,2)
 next_pass = deep_pass
 
 text = "G90\nM3 S" + str(spindelspeed) + "\n"
-text += "G0 Z+5\nG0 X0 Y0"
+text += "G00 Z+5\nG0 X0 Y0"
 
 if deep >= deep_pass:
 
-    text += "\nG1 Z-" + str(next_pass) + " F" + str(feedrate)
-    text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
-    text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
-    text += "\nG1 X" + str(sideB) + " Y0"
-    text += "\nG1 X0 Y0"
+    text += "\nG00 X-"+ str(diameter_r) + " Y0"
+    text += "\nG01 Z-" + str(next_pass) + " F" + str(feedrate)
+    text += "\nG02 I" + str(diameter_r)
 
 
 while deep_pass < cycle_pass:
 
-    text += "\nG1 Z-" + str(next_pass) + " F" + str(feedrate)
-    text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
-    text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
-    text += "\nG1 X" + str(sideB) + " Y0"
-    text += "\nG1 X0 Y0"
+    text += "\nG01 Z-" + str(next_pass) + " F" + str(feedrate)
+    text += "\nG02 I" + str(diameter_r)
 
     cycle_pass -= deep_pass
     next_pass += deep_pass
 
 if deep_pass > cycle_pass and not cycle_pass == 0:
-    text += "\nG1 Z-" + str(cycle_pass) + " F" + str(feedrate)
-    text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
-    text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
-    text += "\nG1 X" + str(sideB) + " Y0"
-    text += "\nG1 X0 Y0"
+    text += "\nG01 Z-" + str(cycle_pass) + " F" + str(feedrate)
+    text += "\nG02 I" + str(diameter_r)
 
 if deep_pass == cycle_pass and not cycle_pass == 0:
-    text += "\nG1 Z-" + str(deep) + " F" + str(feedrate)
-    text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
-    text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
-    text += "\nG1 X" + str(sideB) + " Y0"
-    text += "\nG1 X0 Y0"
+    text += "\nG01 Z-" + str(deep) + " F" + str(feedrate)
+    text += "\nG02 I" + str(diameter_r)
 
-text += "\nG00 Z+5\nM5\nM30"
 
-st.text(str(cycle_pass))
+text += "\nG00 Z+5\nG00 X0 Y0"
+text += "\nM5\nM30"
 
 st.code(text)
 
