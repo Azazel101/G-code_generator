@@ -9,10 +9,14 @@ st.title('G-Code Generator : Rectangle')
 #st.image(image, caption='Sunrise by the mountains')
 
 col1, col2, col3 = st.columns(3)
+
 with col1:
     spindelspeed = st.slider('Spindel Speed', 100,30000,3100)
     feedrate = st.slider('Feedrate', 10,1000,70)
+    safeZ = st.slider('Safe Z', 1,100,5)
 with col2:
+    tool = st.selectbox('Tool movement',('On','Outside','Inside'))   
+    if tool != 'On': tool_diameter = st.number_input('Tool Diameter', min_value = 1.0, max_value = 200.0, value = 1.0)
     sideA = st.number_input('Side A', min_value = 1.0, max_value = 200.0, value = 5.0)
     sideB = st.number_input('Side B', min_value = 1.0, max_value = 200.0, value = 5.0)
     #st.markdown("***")
@@ -21,6 +25,11 @@ with col3:
     deep = st.number_input('Depth of cutting', min_value = 1.0, max_value = 200.0, value = 5.0)
     deep_pass = st.number_input('Depth of cutting per pass', min_value = 1.0, max_value = deep, value = deep)
 
+#if tool == 'Outside':
+#    diameter_r = diameter_r + round(tool_diameter / 2,3)
+#elif tool == 'Inside':
+#    diameter_r = diameter_r - round(tool_diameter / 2,3)
+
 deep = round(deep,2)
 deep_pass = round(deep_pass,2)
 
@@ -28,7 +37,7 @@ cycle_pass = round(deep - deep_pass,2)
 next_pass = deep_pass
 
 text = "G90\nM3 S" + str(spindelspeed) + "\n"
-text += "G0 Z+5\nG0 X0 Y0"
+text += "G0 Z+" + str(safeZ) + "\nG0 X0 Y0"
 
 if deep >= deep_pass:
 
@@ -64,7 +73,7 @@ if deep_pass == cycle_pass and not cycle_pass == 0:
     text += "\nG1 X" + str(sideB) + " Y0"
     text += "\nG1 X0 Y0"
 
-text += "\nG00 Z+5\nM5\nM30"
+text += "\nG00 Z+" + str(safeZ) + "\nM5\nM30"
 
 st.text(str(cycle_pass))
 
