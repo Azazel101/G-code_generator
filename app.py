@@ -9,7 +9,7 @@ st.write("# Welcome to G-Code Generator! 👋")
 
 st.markdown(
     """
-    CNC - G-Code Generator is an open-source app to create
-    Fast and Easy basic G-code for Mill Maschine.
+    G-Code Generator is an open-source app to create
+    Fast and Easy basic G-code for Milling Maschine.
 """
 )
