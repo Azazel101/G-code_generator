@@ -58,7 +58,7 @@ else:
     text += "\nM5\nM30"
 
 
-st.text(str(cycle_pass))
+    st.text(str(cycle_pass))
 
 st.code(text)
 
