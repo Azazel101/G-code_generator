@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(layout="wide")
 
-st.title('CNC - G-Code Generator : Rectangle')
+st.title('G-Code Generator : Rectangle')
 
 col1, col2, col3 = st.columns(3)
 with col1:
@@ -46,8 +46,8 @@ while deep_pass < cycle_pass:
     cycle_pass -= deep_pass
     next_pass += deep_pass
 
-if deep_pass > cycle_pass:
-    text += "\nG1 Z-" + str(cycle_pass) + " " + str(feedrate)
+if deep_pass > cycle_pass and not cycle_pass == 0:
+    text += "\nG1 Z-" + str(cycle_pass) + " F" + str(feedrate)
     text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
     text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
     text += "\nG1 X" + str(sideB) + " Y0"

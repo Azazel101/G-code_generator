@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(layout="wide")
 
-st.title('CNC - G-Code Generator : Drill hole')
+st.title('G-Code Generator : Drill hole')
 
 col1, col2, col3 = st.columns(3)
 with col1:
