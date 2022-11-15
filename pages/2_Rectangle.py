@@ -75,7 +75,7 @@ if deep_pass == cycle_pass and not cycle_pass == 0:
 
 text += "\nG00 Z+" + str(safeZ) + "\nM5\nM30"
 
-st.text(str(cycle_pass))
+#st.text(str(cycle_pass))
 
 st.code(text)
 
