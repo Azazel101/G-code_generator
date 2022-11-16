@@ -36,16 +36,10 @@ next_pass = deep_pass
 text = "G90\nM3 S" + str(spindelspeed) + "\n"
 text += "G0 Z+" + str(safeZ) + "\nG0 X0 Y0"
 
-if deep >= deep_pass:
 
-    text += "\nG1 Z-" + str(next_pass) + " F" + str(feedrate)
-    text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
-    text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
-    text += "\nG1 X" + str(sideB) + " Y0"
-    text += "\nG1 X0 Y0"
+while deep_pass <= cycle_pass:
 
-
-while deep_pass < cycle_pass:
+    st.write(cycle_pass)
 
     text += "\nG1 Z-" + str(next_pass) + " F" + str(feedrate)
     text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
@@ -65,6 +59,14 @@ if deep_pass > cycle_pass and not cycle_pass == 0:
 
 if deep_pass == cycle_pass and not cycle_pass == 0:
     text += "\nG1 Z-" + str(deep) + " F" + str(feedrate)
+    text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
+    text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
+    text += "\nG1 X" + str(sideB) + " Y0"
+    text += "\nG1 X0 Y0"
+
+if deep >= deep_pass:
+
+    text += "\nG1 Z-" + str(next_pass) + " F" + str(feedrate)
     text += "\nG1 X0 Y"+ str(sideA) + " F" + str(feedrate)
     text += "\nG1 X" + str(sideB) + " Y"+ str(sideA)
     text += "\nG1 X" + str(sideB) + " Y0"

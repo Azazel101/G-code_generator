@@ -43,14 +43,8 @@ next_pass = deep_pass
 text = "G90\nM3 S" + str(spindelspeed) + "\n"
 text += "G00 Z+" + str(safeZ) + "\nG0 X0 Y0"
 
-if deep >= deep_pass:
 
-    text += "\nG00 X-"+ str(diameter_r) + " Y0"
-    text += "\nG01 Z-" + str(next_pass) + " F" + str(feedrate)
-    text += "\nG02 I" + str(diameter_r)
-
-
-while deep_pass < cycle_pass:
+while deep_pass <= cycle_pass:
 
     text += "\nG01 Z-" + str(next_pass) + " F" + str(feedrate)
     text += "\nG02 I" + str(diameter_r)
@@ -64,6 +58,12 @@ if deep_pass > cycle_pass and not cycle_pass == 0:
 
 if deep_pass == cycle_pass and not cycle_pass == 0:
     text += "\nG01 Z-" + str(deep) + " F" + str(feedrate)
+    text += "\nG02 I" + str(diameter_r)
+
+if deep >= deep_pass:
+
+    if deep == deep_pass:text += "\nG00 X-"+ str(diameter_r) + " Y0"
+    text += "\nG01 Z-" + str(next_pass) + " F" + str(feedrate)
     text += "\nG02 I" + str(diameter_r)
 
 
