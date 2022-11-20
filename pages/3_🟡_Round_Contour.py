@@ -18,7 +18,7 @@ with col1:
     feedrate = st.slider('Feedrate', 10,1000,70)
     safeZ = st.slider('Safe Z', 1,100,5)
     deep = st.number_input('Depth of cutting', min_value = 1.0, max_value = 200.0, value = 5.0)
-    deep_pass = st.number_input('Depth of cutting per pass', min_value = 1.0, max_value = deep, value = deep)
+    deep_pass = st.number_input('Depth of cutting per pass', min_value = 0.1, max_value = deep, value = deep)
 with col2:
     st.image(image1)
     tool = st.selectbox('Tool movement',('On','Outside','Inside'))
@@ -37,33 +37,27 @@ elif tool == 'Inside':
 deep = round(deep,2)
 deep_pass = round(deep_pass,2)
 
-cycle_pass = round(deep - deep_pass,2)
+#cycle_pass = round(deep - deep_pass,2)
+cycle_pass = deep_pass
 next_pass = deep_pass
 
 text = "G90\nM3 S" + str(spindelspeed) + "\n"
 text += "G00 Z+" + str(safeZ) + "\nG0 X0 Y0"
 
+deep_cycle = 1
 
-while deep_pass <= cycle_pass:
-
+while next_pass < deep:
+    text += "\n(Deep cycle " + str(deep_cycle) + ")"
     text += "\nG01 Z-" + str(next_pass) + " F" + str(feedrate)
     text += "\nG02 I" + str(diameter_r)
-
     cycle_pass -= deep_pass
     next_pass += deep_pass
-
-if deep_pass > cycle_pass and not cycle_pass == 0:
-    text += "\nG01 Z-" + str(cycle_pass) + " F" + str(feedrate)
-    text += "\nG02 I" + str(diameter_r)
-
-if deep_pass == cycle_pass and not cycle_pass == 0:
-    text += "\nG01 Z-" + str(deep) + " F" + str(feedrate)
-    text += "\nG02 I" + str(diameter_r)
-
+    deep_cycle += 1
+    
 if deep >= deep_pass:
-
+    text += "\n(Deep cycle " + str(deep_cycle) + ")"
     if deep == deep_pass:text += "\nG00 X-"+ str(diameter_r) + " Y0"
-    text += "\nG01 Z-" + str(next_pass) + " F" + str(feedrate)
+    text += "\nG01 Z-" + str(deep) + " F" + str(feedrate)
     text += "\nG02 I" + str(diameter_r)
 
 
