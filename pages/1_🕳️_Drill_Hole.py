@@ -30,7 +30,7 @@ text = "G90\nM3 S" + str(spindelspeed) + "\n"
 text += "(Hole 1)\nG0 Z+" + str(safeZ) + "\nG0 " + direction + "+" + str(offset) + "\nG0 Z-1.604\nG1 Z-" + str(deep) + " F" + str(feedrate) + "\n"
 
 if num_hole > 1:
-    with col3: distanc = st.number_input('Distance between hole', min_value = 0.0, max_value = 300.0, value = 25.0)
+    with col2: distanc = st.number_input('Distance between hole', min_value = 0.0, max_value = 300.0, value = 25.0)
 
     acc_dist = offset + distanc
 
