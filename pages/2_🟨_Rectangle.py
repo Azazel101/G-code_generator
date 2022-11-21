@@ -22,8 +22,8 @@ with col2:
     st.image(image1)
     tool = st.selectbox('Tool movement',('On','Outside','Inside'))   
     if tool != 'On': tool_diameter = st.number_input('Tool Diameter', min_value = 1.0, max_value = 200.0, value = 1.0)
-    sideA = st.number_input('Side A', min_value = 1.0, max_value = 200.0, value = 5.0)
-    sideB = st.number_input('Side B', min_value = 1.0, max_value = 200.0, value = 10.0)
+    sideA = st.number_input('Side - A', min_value = 1.0, max_value = 200.0, value = 5.0)
+    sideB = st.number_input('Side - B', min_value = 1.0, max_value = 200.0, value = 10.0)
     #st.markdown("***")
 
 
