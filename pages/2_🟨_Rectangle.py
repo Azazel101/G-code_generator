@@ -22,8 +22,8 @@ with col1:
     spindelspeed = st.slider('Spindel Speed', 100,30000,3100)
     feedrate = st.slider('Feedrate', 10,1000,70)
     safeZ = st.slider('Safe Z', 1,100,5)
-    deep = st.number_input('Depth of cutting', min_value = 1.0, max_value = 200.0, value = 5.0)
-    deep_pass = st.number_input('Depth of cutting per pass', min_value = 1.0, max_value = deep, value = deep)
+    deep = st.number_input('Depth of cutting', min_value = 0.1, max_value = 200.0, value = 5.0)
+    deep_pass = st.number_input('Depth of cutting per pass', min_value = 0.1, max_value = deep, value = deep)
 with col2:
     st.image(image1)
     tool = st.selectbox('Tool movement',('On','Outside','Inside'))   
