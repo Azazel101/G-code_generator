@@ -2,6 +2,12 @@ import streamlit as st
 import os
 from PIL import Image
 
+st.set_page_config(
+    page_title="G-Code Generator : Drill hole",
+    layout="wide",
+    page_icon="🕳️",
+)
+
 path = os.path.dirname(__file__)
 
 image1 = Image.open(path+'/drill.JPG')
