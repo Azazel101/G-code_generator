@@ -10,7 +10,7 @@ st.set_page_config(
 
 path = os.path.dirname(__file__)
 
-image1 = Image.open(path+'/face.JPG')
+image1 = Image.open(path+'/face.jpg')
 image2 = Image.open(path+'/spindel.JPG')
 
 st.title('G-Code Generator : Face Milling')
