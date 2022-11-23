@@ -28,6 +28,7 @@ with col1:
 with col2:
     st.image(image1)
     tool_diameter = st.number_input('Tool Diameter', min_value = 1.0, max_value = 200.0, value = 2.0)
+    overlap = st.number_input('Y Overlap %', min_value = 1.0, max_value = 200.0, value = 2.0)
     sideA = st.number_input('Side - A', min_value = 1.0, max_value = 200.0, value = 10.0)
     sideB = st.number_input('Side - B', min_value = 1.0, max_value = 200.0, value = 20.0)
     #st.markdown("***")
@@ -53,7 +54,7 @@ while sideA_phase < sideA:
 
     text += "\n(Phase cycle " + str(deep_cycle) + ")"
     text += "\nG1 X" + str(sideB) + " Y" + str(sideA_phase)    
-    sideA_phase += tool_diameter
+    sideA_phase += tool_diameter * overlap / 100
     if sideA_phase > sideA: sideA_phase = sideA
     text += "\nG1 X" + str(sideB) + " Y" + str(sideA_phase)
     text += "\nG1 X0 Y" + str(sideA_phase)
