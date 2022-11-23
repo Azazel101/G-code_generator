@@ -53,14 +53,14 @@ text += "\nG1 Z-" + str(next_pass) + " F" + str(feedrate)
 while sideA_phase < sideA:
 
     text += "\n(Phase cycle " + str(deep_cycle) + ")"
-    text += "\nG1 X" + str(sideB) + " Y" + str(sideA_phase)    
+    text += "\nG1 X" + str(sideB) + " Y" + str(round(sideA_phase,2))    
     sideA_phase += round(tool_diameter * overlap / 100,2)
     if sideA_phase > sideA: sideA_phase = sideA
-    text += "\nG1 X" + str(sideB) + " Y" + str(sideA_phase)
+    text += "\nG1 X" + str(sideB) + " Y" + str(round(sideA_phase,2))
     text += "\nG1 X0 Y" + str(sideA_phase)
     sideA_phase += round(tool_diameter * overlap / 100,2)
     if sideA_phase > sideA: sideA_phase = sideA
-    if sideA_phase < sideA:text += "\nG1 X0 Y" + str(sideA_phase)
+    if sideA_phase < sideA:text += "\nG1 X0 Y" + str(round(sideA_phase,2))
 
     cycle_pass -= deep_pass
     next_pass += deep_pass
