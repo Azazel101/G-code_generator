@@ -15,7 +15,7 @@ image2 = Image.open(path+'/spindel.JPG')
 
 st.title('G-Code Generator : Face Milling')
 
-
+ 
 
 col1, col2 = st.columns(2)
 with col1:
