@@ -74,8 +74,9 @@ while sideA_phase < sideA:
 #    text += "\nG1 X" + str(sideB) + " Y0"
 #    text += "\nG1 X0 Y0"
 
+text += "\nG00 Z+" + str(safeZ)
 text += "\nG1 X0 Y0"
-text += "\nG00 Z+" + str(safeZ) + "\nM5\nM30"
+text += "\nM5\nM30"
 
 st.code(text)
 
