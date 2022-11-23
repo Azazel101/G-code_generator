@@ -54,11 +54,11 @@ while sideA_phase < sideA:
 
     text += "\n(Phase cycle " + str(deep_cycle) + ")"
     text += "\nG1 X" + str(sideB) + " Y" + str(sideA_phase)    
-    sideA_phase += tool_diameter * overlap / 100
+    sideA_phase += round(tool_diameter * overlap / 100,2)
     if sideA_phase > sideA: sideA_phase = sideA
     text += "\nG1 X" + str(sideB) + " Y" + str(sideA_phase)
     text += "\nG1 X0 Y" + str(sideA_phase)
-    sideA_phase += tool_diameter
+    sideA_phase += round(tool_diameter * overlap / 100,2)
     if sideA_phase > sideA: sideA_phase = sideA
     if sideA_phase < sideA:text += "\nG1 X0 Y" + str(sideA_phase)
 
