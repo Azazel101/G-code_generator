@@ -57,7 +57,7 @@ while sideA_phase < sideA:
     sideA_phase += round(tool_diameter * overlap / 100,2)
     if sideA_phase > sideA: sideA_phase = sideA
     text += "\nG1 X" + str(sideB) + " Y" + str(round(sideA_phase,2))
-    text += "\nG1 X0 Y" + str(sideA_phase)
+    text += "\nG1 X0 Y" + str(round(sideA_phase,2))
     sideA_phase += round(tool_diameter * overlap / 100,2)
     if sideA_phase > sideA: sideA_phase = sideA
     if sideA_phase < sideA:text += "\nG1 X0 Y" + str(round(sideA_phase,2))
