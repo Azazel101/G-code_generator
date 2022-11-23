@@ -28,7 +28,7 @@ with col1:
 with col2:
     st.image(image1)
     tool_diameter = st.number_input('Tool Diameter', min_value = 1.0, max_value = 200.0, value = 2.0)
-    overlap = st.number_input('Y Overlap %', min_value = 1.0, max_value = 200.0, value = 2.0)
+    overlap = st.number_input('Y Overlap %', min_value = 1, max_value = 100, value = 100)
     sideA = st.number_input('Side - A', min_value = 1.0, max_value = 200.0, value = 10.0)
     sideB = st.number_input('Side - B', min_value = 1.0, max_value = 200.0, value = 20.0)
     #st.markdown("***")
