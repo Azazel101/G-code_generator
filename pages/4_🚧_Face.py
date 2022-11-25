@@ -28,22 +28,22 @@ with col1:
 with col2:
     st.image(image1)
     tool_diameter = st.number_input('Tool Diameter', min_value = 1.0, max_value = 200.0, value = 2.0)
-    overlap = st.number_input('Y Overlap %', min_value = 1, max_value = 100, value = 100)
+    overlapY = st.number_input('Y Overlap %', min_value = 1, max_value = 100, value = 100)
+    overlapX = st.checkbox('Pass Extension')
     sideA = st.number_input('Side - A', min_value = 1.0, max_value = 200.0, value = 10.0)
     sideB = st.number_input('Side - B', min_value = 1.0, max_value = 200.0, value = 20.0)
-    #st.markdown("***")
 
 
 deep = round(deep,2)
 deep_pass = round(deep_pass,2)
-
-#cycle_pass = round(deep - deep_pass,2)
-cycle_pass = deep_pass
 next_pass = deep_pass
-
 sideA_phase = 0
-
 deep_cycle = 1
+if overlapX:
+    startX = -abs(tool_diameter)
+    sideB += tool_diameter
+else: startX = 0
+
 
 text = "G90\nM3 S" + str(spindelspeed) + "\n"
 text += "G0 Z+" + str(safeZ) + "\nG0 X0 Y0"
@@ -54,15 +54,14 @@ while sideA_phase < sideA:
 
     text += "\n(Phase cycle " + str(deep_cycle) + ")"
     text += "\nG1 X" + str(sideB) + " Y" + str(round(sideA_phase,2))    
-    sideA_phase += round(tool_diameter * overlap / 100,2)
+    sideA_phase += round(tool_diameter * overlapY / 100,2)
     if sideA_phase > sideA: sideA_phase = sideA
     text += "\nG1 X" + str(sideB) + " Y" + str(round(sideA_phase,2))
-    text += "\nG1 X0 Y" + str(round(sideA_phase,2))
-    sideA_phase += round(tool_diameter * overlap / 100,2)
+    text += "\nG1 X" + str(startX) +" Y" + str(round(sideA_phase,2))
+    sideA_phase += round(tool_diameter * overlapY / 100,2)
     if sideA_phase > sideA: sideA_phase = sideA
-    if sideA_phase < sideA:text += "\nG1 X0 Y" + str(round(sideA_phase,2))
+    if sideA_phase < sideA:text += "\nG1 X" + str(startX) +" Y" + str(round(sideA_phase,2))
 
-    cycle_pass -= deep_pass
     next_pass += deep_pass
     deep_cycle += 1
     
