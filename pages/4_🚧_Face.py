@@ -40,7 +40,7 @@ next_pass = deep_pass
 sideA_phase = 0
 deep_cycle = 1
 if overlapX:
-    startX = -abs(tool_diameter)
+    startX = -abs(round(tool_diameter/2,2))
     sideB += tool_diameter
 else: startX = 0
 
