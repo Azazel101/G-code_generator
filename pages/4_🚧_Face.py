@@ -41,7 +41,7 @@ sideA_phase = 0
 deep_cycle = 1
 if overlapX:
     startX = -abs(round(tool_diameter/2,2))
-    sideB += tool_diameter
+    sideB += round(tool_diameter/2,2)
 else: startX = 0
 
 
