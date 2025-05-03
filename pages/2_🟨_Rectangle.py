@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 from PIL import Image
+from datetime import datetime
 
 st.set_page_config(
     page_title="G-Code Generator : Rectangle",
@@ -72,4 +73,5 @@ text += "\nG00 Z+" + str(safeZ) + "\nM5\nM30"
 
 st.code(text)
 
-st.download_button('Download G-Code', data = text)
+filename = f"rectangle_{datetime.now().strftime('%Y%m%d_%H%M%S')}.nc"
+st.download_button('Download G-Code', data=text, file_name=filename)

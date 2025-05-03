@@ -1,3 +1,4 @@
+from datetime import datetime
 import streamlit as st
 import os
 from PIL import Image
@@ -18,7 +19,7 @@ st.title('G-Code Generator : Drill hole')
 col1, col2 = st.columns(2)
 with col1:
     st.image(image2)
-    spindelspeed = st.slider('Spindel Speed', min_value=100,max_value=30000,value=3100, step=10)
+    spindelspeed = st.slider('Spindel Speed', min_value=100,max_value=30000,value=20000, step=10)
     feedrate = st.slider('Feedrate', min_value=10, max_value=1000, value=70, step=10)
     safeZ = st.slider('Safe Z', 1,100,5)
     deep = st.number_input('Depth of cutting', min_value = 0.05, max_value = 200.0, value = 5.0)
@@ -49,4 +50,5 @@ text += "G0 Z+" + str(safeZ) + "\nM5\nG0 X+0 Y+0\nM30"
 
 st.code(text)
 
-st.download_button('Download G-Code', data = text)
+filename = f"drill_hole_{datetime.now().strftime('%Y%m%d_%H%M%S')}.nc"
+st.download_button('Download G-Code', data=text, file_name=filename)
