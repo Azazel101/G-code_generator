@@ -28,7 +28,7 @@ with col1:
     deep_pass = st.number_input('Depth of cutting per pass', min_value = 0.05, max_value = deep, value = deep)
 with col2:
     st.image(image1)
-    tool_diameter = st.number_input('Tool Diameter', min_value = 1.0, max_value = 200.0, value = 2.0)
+    tool_diameter = st.number_input('Tool Diameter', min_value = 1.0, max_value = 200.0, value = 2.0, step=0.5)
     overlapY = st.number_input('Y Overlap %', min_value = 1, max_value = 100, value = 90)
     overlapX = st.checkbox('Pass Extension', value=True)
     sideA = st.number_input('Side - A', min_value = 1.0, max_value = 200.0, value = 10.0)

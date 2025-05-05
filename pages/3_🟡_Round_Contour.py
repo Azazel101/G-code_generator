@@ -2,6 +2,7 @@ from datetime import datetime
 import streamlit as st
 import os
 from PIL import Image
+import matplotlib.pyplot as plt
 
 st.set_page_config(
     page_title="G-Code Generator : Round Contour",
@@ -30,7 +31,7 @@ with col1:
 with col2:
     st.image(image1)
     tool = st.selectbox('Tool movement',('On','Outside','Inside'))
-    if tool != 'On': tool_diameter = st.number_input('Tool Diameter', min_value = 1.0, max_value = 200.0, value = 1.0)
+    if tool != 'On': tool_diameter = st.number_input('Tool Diameter', min_value = 1.0, max_value = 200.0, value = 1.0, step=0.5)
     diameter = st.number_input('Diameter of a circle D', min_value = 1.0, max_value = 200.0, value = 5.0)
     #st.markdown("***")
 
