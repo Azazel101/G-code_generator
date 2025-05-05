@@ -2,7 +2,6 @@ from datetime import datetime
 import streamlit as st
 import os
 from PIL import Image
-import matplotlib.pyplot as plt
 
 st.set_page_config(
     page_title="G-Code Generator : Round Contour",
