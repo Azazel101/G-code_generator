@@ -6,10 +6,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 st.set_page_config(
-    page_title="G-Code Generator : Round Contour",
+    page_title="G-Code Generator : Toolpath",
     layout="wide",
     page_icon="🛠️",  # Tool emoji to represent toolpath/machining
 )
+
 path = os.path.dirname(__file__)
 
 st.title("Visualization toolpath from G-codu")
@@ -104,8 +105,6 @@ if uploaded_file is not None:
         st.subheader("Toolpath Statistics")
         col1, col2, col3 = st.columns(3)
         col1.metric("Number of points", len(coords))
-        col2.metric("X Range", f"{min(x):.2f} to {max(x):.2f} mm")
-        col3.metric("Y Range", f"{min(y):.2f} to {max(y):.2f} mm")
         x, y, z = zip(*coords)
         
         # Create figure with white theme
